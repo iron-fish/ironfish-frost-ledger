@@ -29,6 +29,7 @@ class InsType(IntEnum):
     GET_APP_NAME   = 0x04
     GET_PUBLIC_KEY = 0x05
     SIGN_TX        = 0x06
+    GET_SECRET     = 0x07
 
 class Errors(IntEnum):
     SW_DENY                    = 0x6985
@@ -86,6 +87,13 @@ class BoilerplateCommandSender:
                                      p1=P1.P1_START,
                                      p2=P2.P2_LAST,
                                      data=pack_derivation_path(path))
+    
+    def get_secret(self) -> RAPDU:
+        return self.backend.exchange(cla=CLA,
+                                     ins=InsType.GET_SECRET,
+                                     p1=P1.P1_CONFIRM,
+                                     p2=P2.P2_LAST,
+                                     data=b"")
 
 
     @contextmanager
