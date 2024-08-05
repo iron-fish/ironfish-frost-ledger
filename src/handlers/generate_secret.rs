@@ -18,7 +18,10 @@
  use crate::app_ui::secret::ui_display_secret;
  use crate::utils::Bip32Path;
  use crate::AppSW;
- use ironfish_frost::participant::{Secret, SECRET_LEN};
+ use ironfish_frost::{dkg::round1::{self, PublicPackage}, participant::{Secret, SECRET_LEN,}};
+
+ extern crate alloc;
+ use alloc::vec::Vec;
 
  use ledger_device_sdk::ecc::{Secp256k1, SeedDerive};
  use ledger_device_sdk::random::LedgerRng;
@@ -32,17 +35,29 @@
  
      let mut rng = LedgerRng {};
     
-    let secret = Secret::random(&mut rng);
-    let secret_bytes = secret.serialize();
+    let secret1 = Secret::random(&mut rng);
+    let identity1 = secret1.to_identity();
+    let secret2 = Secret::random(&mut rng);
+    let identity2 = secret2.to_identity();
+
+    
+    let (round1_secret_package , package): (Vec<u8>, PublicPackage) = round1::round1(
+        &identity1,
+        2,
+        [&identity1, &identity2],
+        &mut rng,
+    ).unwrap();
+    let round1_secret_slice = round1_secret_package.as_slice();
  
      if display {
-         if !ui_display_secret(&secret_bytes)? {
+         if !ui_display_secret(&round1_secret_slice)? {
              return Err(AppSW::Deny);
          }
      }
- 
-     comm.append(&[SECRET_LEN as u8]);
-     comm.append(&secret_bytes);
+     
+    // TODO needs to be u16
+    //  comm.append(&[round1_secret_slice.len() as u8]);
+     comm.append(&round1_secret_slice);
  
      Ok(())
  }
