@@ -47,7 +47,6 @@ use ledger_device_sdk::io::{ApduHeader, Comm, Event, Reply, StatusWords};
 use ledger_device_sdk::ui::gadgets::display_pending_review;
 
 ledger_device_sdk::set_panic!(ledger_device_sdk::exiting_panic);
-use core::sync::atomic::AtomicU64;
 // Required for using String, Vec, format!...
 extern crate alloc;
 
