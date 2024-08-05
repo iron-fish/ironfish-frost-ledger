@@ -1,7 +1,5 @@
-import pytest
-
 from application_client.boilerplate_command_sender import BoilerplateCommandSender, Errors
-from application_client.boilerplate_response_unpacker import unpack_get_public_key_response
+from application_client.boilerplate_response_unpacker import unpack_get_secret_response
 from ragger.bip import calculate_public_key_and_chaincode, CurveChoice
 from ragger.error import ExceptionRAPDU
 from ragger.navigator import NavInsID, NavIns
@@ -9,9 +7,10 @@ from utils import ROOT_SCREENSHOT_PATH
 
 
 # In this test we check that the GET_PUBLIC_KEY works in non-confirmation mode
-def test_get_public_key_no_confirm(backend):
+def test_get_secret_no_confirm(backend):
     client = BoilerplateCommandSender(backend)
     response = client.get_secret().data
-    _, secret, _, _ = unpack_get_public_key_response(response)
+    _, secret = unpack_get_secret_response(response)
+    print(f'secretz {secret.hex()}')
 
     assert secret.hex() == ''

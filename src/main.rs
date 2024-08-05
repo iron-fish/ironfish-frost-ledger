@@ -41,6 +41,7 @@ use handlers::{
     get_version::handler_get_version,
     sign_tx::{handler_sign_tx, TxContext},
 };
+use ironfish_frost::frost::rand_core::RngCore;
 use ledger_device_sdk::io::{ApduHeader, Comm, Event, Reply, StatusWords};
 #[cfg(feature = "pending_review_screen")]
 #[cfg(not(any(target_os = "stax", target_os = "flex")))]
@@ -56,10 +57,10 @@ use ledger_device_sdk::nbgl::{init_comm, NbglReviewStatus, StatusType};
 
 use getrandom::register_custom_getrandom;
 
-
+use getrandom::Error;
 pub fn custom_getrandom(buf: &mut [u8]) -> Result<(), Error> {
     let mut rng = ledger_device_sdk::random::LedgerRng;
-    rng.fill(buf)?;
+    rng.fill_bytes(buf);
     Ok(())
 }
 register_custom_getrandom!(custom_getrandom);

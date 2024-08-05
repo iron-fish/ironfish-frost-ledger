@@ -36,7 +36,7 @@
     let secret_bytes = secret.serialize();
  
      if display {
-         if !ui_display_secret(&secret)? {
+         if !ui_display_secret(&secret_bytes)? {
              return Err(AppSW::Deny);
          }
      }

@@ -91,7 +91,7 @@ class BoilerplateCommandSender:
     def get_secret(self) -> RAPDU:
         return self.backend.exchange(cla=CLA,
                                      ins=InsType.GET_SECRET,
-                                     p1=P1.P1_CONFIRM,
+                                     p1=P1.P1_START,
                                      p2=P2.P2_LAST,
                                      data=b"")
 
