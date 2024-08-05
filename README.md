@@ -1,3 +1,15 @@
+# Ironfish setup instructions:
+- Clone this repo
+- Install VS Code extension for ledger
+- Install XQuartz (available via homebrew)
+  - Open XQuartz
+  - XQuartz -> Settings -> Security -> Allow connections from network clients
+  - Restart computer
+- Open VS Code Ledger extension while this project is open
+- Docker Container -> Update Container
+- Functional Tests -> Run tests with display
+
+
 # Ledger Rust Boilerplate Application
 
 ![Rule enforcer](https://github.com/LedgerHQ/app-boilerplate-rust/actions/workflows/guidelines_enforcer.yml/badge.svg) ![Build and tests](https://github.com/LedgerHQ/app-boilerplate-rust/actions/workflows/build_and_functional_tests.yml/badge.svg)

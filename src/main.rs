@@ -23,9 +23,11 @@ mod app_ui {
     pub mod address;
     pub mod menu;
     pub mod sign;
+    pub mod secret;
 }
 mod handlers {
     pub mod get_public_key;
+    pub mod generate_secret;
     pub mod get_version;
     pub mod sign_tx;
 }
@@ -35,6 +37,7 @@ mod settings;
 use app_ui::menu::ui_menu_main;
 use handlers::{
     get_public_key::handler_get_public_key,
+    generate_secret::handler_generate_secret,
     get_version::handler_get_version,
     sign_tx::{handler_sign_tx, TxContext},
 };
@@ -44,12 +47,23 @@ use ledger_device_sdk::io::{ApduHeader, Comm, Event, Reply, StatusWords};
 use ledger_device_sdk::ui::gadgets::display_pending_review;
 
 ledger_device_sdk::set_panic!(ledger_device_sdk::exiting_panic);
-
+use core::sync::atomic::AtomicU64;
 // Required for using String, Vec, format!...
 extern crate alloc;
 
 #[cfg(any(target_os = "stax", target_os = "flex"))]
 use ledger_device_sdk::nbgl::{init_comm, NbglReviewStatus, StatusType};
+
+
+use getrandom::register_custom_getrandom;
+
+
+pub fn custom_getrandom(buf: &mut [u8]) -> Result<(), Error> {
+    let mut rng = ledger_device_sdk::random::LedgerRng;
+    rng.fill(buf)?;
+    Ok(())
+}
+register_custom_getrandom!(custom_getrandom);
 
 // P2 for last APDU to receive.
 const P2_SIGN_TX_LAST: u8 = 0x00;
@@ -91,6 +105,7 @@ pub enum Instruction {
     GetVersion,
     GetAppName,
     GetPubkey { display: bool },
+    GenerateSecret { display: bool },
     SignTx { chunk: u8, more: bool },
 }
 
@@ -122,6 +137,9 @@ impl TryFrom<ApduHeader> for Instruction {
                     more: value.p2 == P2_SIGN_TX_MORE,
                 })
             }
+            (7, 0 | 1, 0) => Ok(Instruction::GenerateSecret {
+                display: value.p1 != 0,
+            }),
             (3..=6, _, _) => Err(AppSW::WrongP1P2),
             (_, _, _) => Err(AppSW::InsNotSupported),
         }
@@ -198,6 +216,7 @@ fn handle_apdu(comm: &mut Comm, ins: &Instruction, ctx: &mut TxContext) -> Resul
         }
         Instruction::GetVersion => handler_get_version(comm),
         Instruction::GetPubkey { display } => handler_get_public_key(comm, *display),
+        Instruction::GenerateSecret { display } => handler_generate_secret(comm, *display),
         Instruction::SignTx { chunk, more } => handler_sign_tx(comm, *chunk, *more, ctx),
     }
 }

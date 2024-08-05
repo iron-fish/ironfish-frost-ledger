@@ -9,6 +9,9 @@ ledger_device_sdk = { version="1.14.0" }
 include_gif = "1.2.0"
 serde = {version="1.0.192", default_features = false, features = ["derive"]}
 serde-json-core = { git = "https://github.com/rust-embedded-community/serde-json-core"}
+ironfish-frost = { git = "https://github.com/iron-fish/ironfish-frost.git", branch = "no-std-remote-deps", default-features = false, features = ["dkg"]}
+getrandom = { version = "0.2", features = ["custom"] }
+
 hex = { version = "0.4.3", default-features = false, features = ["serde", "alloc"] }
 numtoa = "0.2.4"
 
