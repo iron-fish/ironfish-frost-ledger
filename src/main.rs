@@ -106,6 +106,7 @@ pub enum Instruction {
     GetAppName,
     GetPubkey { display: bool },
     GenerateSecret { display: bool },
+    ContinueApdu,
     SignTx { chunk: u8, more: bool },
 }
 
@@ -140,6 +141,7 @@ impl TryFrom<ApduHeader> for Instruction {
             (7, 0 | 1, 0) => Ok(Instruction::GenerateSecret {
                 display: value.p1 != 0,
             }),
+            (8,0,0) => Ok(Instruction::ContinueApdu),
             (3..=6, _, _) => Err(AppSW::WrongP1P2),
             (_, _, _) => Err(AppSW::InsNotSupported),
         }
@@ -218,5 +220,6 @@ fn handle_apdu(comm: &mut Comm, ins: &Instruction, ctx: &mut TxContext) -> Resul
         Instruction::GetPubkey { display } => handler_get_public_key(comm, *display),
         Instruction::GenerateSecret { display } => handler_generate_secret(comm, *display),
         Instruction::SignTx { chunk, more } => handler_sign_tx(comm, *chunk, *more, ctx),
+        Instruction::ContinueApdu => panic!("ContinueApdu should not be handled here"),
     }
 }
