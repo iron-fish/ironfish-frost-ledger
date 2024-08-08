@@ -178,9 +178,9 @@ checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
 
 [[package]]
 name = "cc"
-version = "1.1.7"
+version = "1.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "26a5c3fd7bfa1ce3897a3a3501d362b2d87b7f2583ebcb4a949ec25911025cbc"
+checksum = "504bdec147f2cc13c8b57ed9401fd8a147cc66b67ad5cb241394244f2c947549"
 
 [[package]]
 name = "cexpr"
@@ -592,18 +592,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "frost-rerandomized"
-version = "2.0.0-rc.0"
-source = "git+https://github.com/ZcashFoundation/frost.git?rev=c6c3f2f#c6c3f2f1673fa7fb99d458d2c5a2323dcecbad0d"
-dependencies = [
- "derive-getters",
- "document-features",
- "frost-core 2.0.0-rc.0 (git+https://github.com/ZcashFoundation/frost.git?rev=c6c3f2f)",
- "hex",
- "rand_core",
-]
-
-[[package]]
 name = "funty"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -769,13 +757,12 @@ dependencies = [
 [[package]]
 name = "ironfish-frost"
 version = "0.1.0"
-source = "git+https://github.com/iron-fish/ironfish-frost.git?branch=no-std-remote-deps#327150eaaaa9b1116602a04ad3cb9cbb7ae635d3"
+source = "git+https://github.com/iron-fish/ironfish-frost.git?rev=9a80b83367d17b0b3337fe60ec6cd8f72f0707ab#9a80b83367d17b0b3337fe60ec6cd8f72f0707ab"
 dependencies = [
  "chacha20",
  "chacha20poly1305",
  "ed25519-dalek",
  "frost-core 2.0.0-rc.0 (git+https://github.com/ZcashFoundation/frost.git?rev=c6c3f2f)",
- "frost-rerandomized 2.0.0-rc.0 (git+https://github.com/ZcashFoundation/frost.git?rev=c6c3f2f)",
  "rand_core",
  "reddsa",
  "siphasher",
@@ -1074,7 +1061,7 @@ dependencies = [
 [[package]]
 name = "radium"
 version = "0.7.1"
-source = "git+https://github.com/iron-fish/radium#5b9351a8e4db0917432164afb9062ebebecb26da"
+source = "git+https://github.com/iron-fish/radium?rev=674c8faf1e74f931a58671f70586e6435353e9b6#674c8faf1e74f931a58671f70586e6435353e9b6"
 
 [[package]]
 name = "rand"
@@ -1117,11 +1104,11 @@ dependencies = [
 [[package]]
 name = "reddsa"
 version = "0.5.1"
-source = "git+https://github.com/iron-fish/reddsa.git?branch=main#de27a03f33ae5b626997da201283e7da7e382c59"
+source = "git+https://github.com/ZcashFoundation/reddsa.git?rev=9ac52c5c60e454b0032d78a22c05fb79aae1d51e#9ac52c5c60e454b0032d78a22c05fb79aae1d51e"
 dependencies = [
  "blake2b_simd",
  "byteorder",
- "frost-rerandomized 2.0.0-rc.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "frost-rerandomized",
  "group",
  "hex",
  "jubjub",
@@ -1206,17 +1193,17 @@ checksum = "61697e0a1c7e512e84a621326239844a24d8207b4669b41bc18b32ea5cbf988b"
 
 [[package]]
 name = "serde"
-version = "1.0.204"
+version = "1.0.205"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bc76f558e0cbb2a839d37354c575f1dc3fdc6546b5be373ba43d95f231bf7c12"
+checksum = "e33aedb1a7135da52b7c21791455563facbbcc43d0f0f66165b42c21b3dfb150"
 dependencies = [
  "serde_derive",
 ]
 
 [[package]]
 name = "serde-json-core"
-version = "0.5.1"
-source = "git+https://github.com/rust-embedded-community/serde-json-core#f54d47f2c8beeb46ae031256c05ee34108ff480e"
+version = "0.6.0"
+source = "git+https://github.com/rust-embedded-community/serde-json-core#ca6745785c6d315d532170a33bff826377c693c9"
 dependencies = [
  "heapless 0.8.0",
  "ryu",
@@ -1225,9 +1212,9 @@ dependencies = [
 
 [[package]]
 name = "serde_derive"
-version = "1.0.204"
+version = "1.0.205"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e0cd7e117be63d3c3678776753929474f3b04a43a080c744d6b0ae2a8c28e222"
+checksum = "692d6f5ac90220161d6774db30c662202721e64aed9058d2c394f451261420c1"
 dependencies = [
  "proc-macro2",
  "quote",

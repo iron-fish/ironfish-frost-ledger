@@ -9,7 +9,7 @@ ledger_device_sdk = { version="1.14.0" }
 include_gif = "1.2.0"
 serde = {version="1.0.192", default_features = false, features = ["derive"]}
 serde-json-core = { git = "https://github.com/rust-embedded-community/serde-json-core"}
-ironfish-frost = { git = "https://github.com/iron-fish/ironfish-frost.git", branch = "no-std-remote-deps", default-features = false, features = ["dkg"]}
+ironfish-frost = { git = "https://github.com/iron-fish/ironfish-frost.git", rev = "9a80b83367d17b0b3337fe60ec6cd8f72f0707ab", default-features = false, features = ["dkg"]}
 getrandom = { version = "0.2", features = ["custom"] }
 
 hex = { version = "0.4.3", default-features = false, features = ["serde", "alloc"] }
@@ -45,4 +45,4 @@ icon = "crab_40x40.gif"
 # TODO: This change shouldn't be necessary, the ledger targets clearly define atomics as only supporting 32 not 64 (as seen in /opt/rustup/toolchains/1.75.0-aarch64-unknown-linux-musl/lib/rustlib/nanosplus/target.json)
 # solve why this is happening rather than using modified radium
 [patch.crates-io]
-radium = { git = "https://github.com/iron-fish/radium" }
+radium = { git = "https://github.com/iron-fish/radium", rev = "674c8faf1e74f931a58671f70586e6435353e9b6" }
