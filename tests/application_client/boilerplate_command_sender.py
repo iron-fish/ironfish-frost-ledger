@@ -30,6 +30,7 @@ class InsType(IntEnum):
     GET_PUBLIC_KEY = 0x05
     SIGN_TX        = 0x06
     GET_SECRET     = 0x07
+    CONTINUE_APDU  = 0x08
 
 class Errors(IntEnum):
     SW_DENY                    = 0x6985
@@ -95,6 +96,12 @@ class BoilerplateCommandSender:
                                      p2=P2.P2_LAST,
                                      data=b"")
 
+    def continue_apdu(self) -> RAPDU:
+        return self.backend.exchange(cla=CLA,
+                                        ins=InsType.CONTINUE_APDU,
+                                        p1=P1.P1_START,
+                                        p2=P2.P2_LAST,
+                                        data=b"")
 
     @contextmanager
     def get_public_key_with_confirmation(self, path: str) -> Generator[None, None, None]:

@@ -69,8 +69,4 @@ def unpack_sign_tx_response(response: bytes) -> Tuple[int, bytes, int]:
     return der_sig_len, der_sig, int.from_bytes(v, byteorder='big')
 
 def unpack_get_secret_response(response: bytes) -> Tuple[int, bytes, int, bytes]:
-    response, secret_len, secret = pop_size_prefixed_buf_from_buf(response)
-
-    assert secret_len == 65
-    assert len(response) == 0
-    return secret_len, secret
+    return response

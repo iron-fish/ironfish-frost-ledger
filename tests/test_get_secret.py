@@ -9,8 +9,13 @@ from utils import ROOT_SCREENSHOT_PATH
 # In this test we check that the GET_PUBLIC_KEY works in non-confirmation mode
 def test_get_secret_no_confirm(backend):
     client = BoilerplateCommandSender(backend)
-    response = client.get_secret().data
-    _, secret = unpack_get_secret_response(response)
-    print(f'secretz {secret.hex()}')
+    data = []
+    datum = client.get_secret().data
+    index = 0
+    while datum:
+        data.append(datum)
+        print(f'data{index} {datum.hex()}')
+        datum = client.continue_apdu().data
+        index += 1
 
-    assert secret.hex() == ''
+    assert 1 == 0
