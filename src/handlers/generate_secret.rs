@@ -42,15 +42,22 @@ use ledger_device_sdk::{
 const MAX_APDU_SIZE: usize = 255;
 
 fn send_apdu_chunks(comm: &mut Comm, data: &[u8]) -> Result<(), AppSW> {
-    for chunk in data.chunks(MAX_APDU_SIZE) {
+    let total_size = data.len();
+    let mut offset = 0;
+
+    while offset < total_size {
+        let end = usize::min(offset + MAX_APDU_SIZE, total_size);
+        let chunk = &data[offset..end];
         comm.append(chunk);
 
         // Send the chunk (you may need to handle the sending mechanism depending on your Comm implementation)
         comm.reply_ok();
         match comm.next_event() {
-            Event::Command(Instruction::GenerateSecret { display }) => {}
+            Event::Command(Instruction::ContinueApdu) => {}
             _ => return Err(AppSW::ClaNotSupported),
         }
+
+        offset = end;
     }
 
     Ok(())
@@ -80,7 +87,7 @@ pub fn handler_generate_secret(comm: &mut Comm, display: bool) -> Result<(), App
     Ok(())
 }
 
-pub fn handler_generate_secret_3(comm: &mut Comm, display: bool) -> Result<(), AppSW> {
+pub fn handler_generate_secret3(comm: &mut Comm, display: bool) -> Result<(), AppSW> {
     // let mut rng = LedgerRng {};
 
     let secret_bytes: [u8; 65] = [
