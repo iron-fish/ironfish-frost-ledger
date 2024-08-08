@@ -56,7 +56,7 @@ fn send_apdu_chunks(comm: &mut Comm, data: &[u8]) -> Result<(), AppSW> {
     Ok(())
 }
 
-pub fn handler_generate_secret1(comm: &mut Comm, display: bool) -> Result<(), AppSW> {
+pub fn handler_generate_secret(comm: &mut Comm, display: bool) -> Result<(), AppSW> {
     let mut rng = LedgerRng {};
 
     let secret1 = Secret::random(&mut rng);
@@ -80,7 +80,7 @@ pub fn handler_generate_secret1(comm: &mut Comm, display: bool) -> Result<(), Ap
     Ok(())
 }
 
-pub fn handler_generate_secret(comm: &mut Comm, display: bool) -> Result<(), AppSW> {
+pub fn handler_generate_secret_3(comm: &mut Comm, display: bool) -> Result<(), AppSW> {
     // let mut rng = LedgerRng {};
 
     let secret_bytes: [u8; 65] = [
