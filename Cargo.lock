@@ -538,6 +538,28 @@ dependencies = [
 [[package]]
 name = "frost-core"
 version = "2.0.0-rc.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ed1383227a6606aacf5df9a17ff57824c6971a0ab225b69b911bec0ba7bbb869"
+dependencies = [
+ "byteorder",
+ "const-crc32-nostd",
+ "debugless-unwrap",
+ "derive-getters",
+ "document-features",
+ "hex",
+ "itertools",
+ "postcard",
+ "rand_core",
+ "serde",
+ "serdect",
+ "thiserror-nostd-notrait",
+ "visibility",
+ "zeroize",
+]
+
+[[package]]
+name = "frost-core"
+version = "2.0.0-rc.0"
 source = "git+https://github.com/ZcashFoundation/frost.git?rev=c6c3f2f#c6c3f2f1673fa7fb99d458d2c5a2323dcecbad0d"
 dependencies = [
  "byteorder",
@@ -559,11 +581,12 @@ dependencies = [
 [[package]]
 name = "frost-rerandomized"
 version = "2.0.0-rc.0"
-source = "git+https://github.com/ZcashFoundation/frost.git?rev=c6c3f2f#c6c3f2f1673fa7fb99d458d2c5a2323dcecbad0d"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bdb14a6054f9ce5aa4912c60c11392d42c43acec8295ee1df1f67a9d0b7a73ee"
 dependencies = [
  "derive-getters",
  "document-features",
- "frost-core",
+ "frost-core 2.0.0-rc.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "hex",
  "rand_core",
 ]
@@ -734,12 +757,12 @@ dependencies = [
 [[package]]
 name = "ironfish-frost"
 version = "0.1.0"
-source = "git+https://github.com/iron-fish/ironfish-frost.git?rev=44d193dd881d5d84ac6290a48350906d485c832f#44d193dd881d5d84ac6290a48350906d485c832f"
+source = "git+https://github.com/iron-fish/ironfish-frost.git?rev=9a80b83367d17b0b3337fe60ec6cd8f72f0707ab#9a80b83367d17b0b3337fe60ec6cd8f72f0707ab"
 dependencies = [
  "chacha20",
  "chacha20poly1305",
  "ed25519-dalek",
- "frost-core",
+ "frost-core 2.0.0-rc.0 (git+https://github.com/ZcashFoundation/frost.git?rev=c6c3f2f)",
  "rand_core",
  "reddsa",
  "siphasher",
@@ -1038,7 +1061,7 @@ dependencies = [
 [[package]]
 name = "radium"
 version = "0.7.1"
-source = "git+https://github.com/iron-fish/radium?rev=53271611341d36512103ba9e23941e2381009fae#53271611341d36512103ba9e23941e2381009fae"
+source = "git+https://github.com/iron-fish/radium?rev=674c8faf1e74f931a58671f70586e6435353e9b6#674c8faf1e74f931a58671f70586e6435353e9b6"
 
 [[package]]
 name = "rand"
@@ -1081,7 +1104,7 @@ dependencies = [
 [[package]]
 name = "reddsa"
 version = "0.5.1"
-source = "git+https://github.com/ZcashFoundation/reddsa.git?rev=98e48b4953b2cf98bea96107bbde800534e98d28#98e48b4953b2cf98bea96107bbde800534e98d28"
+source = "git+https://github.com/ZcashFoundation/reddsa.git?rev=9ac52c5c60e454b0032d78a22c05fb79aae1d51e#9ac52c5c60e454b0032d78a22c05fb79aae1d51e"
 dependencies = [
  "blake2b_simd",
  "byteorder",
