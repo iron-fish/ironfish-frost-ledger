@@ -41,53 +41,7 @@ use ledger_device_sdk::{
 
 const MAX_APDU_SIZE: usize = 255;
 
-fn send_apdu_chunks(comm: &mut Comm, data: &[u8]) -> Result<(), AppSW> {
-    let total_size = data.len();
-    let mut offset = 0;
-
-    while offset < total_size {
-        let end = usize::min(offset + MAX_APDU_SIZE, total_size);
-        let chunk = &data[offset..end];
-        comm.append(chunk);
-
-        // Send the chunk (you may need to handle the sending mechanism depending on your Comm implementation)
-        comm.reply_ok();
-        match comm.next_event() {
-            Event::Command(Instruction::ContinueApdu) => {}
-            _ => return Err(AppSW::ClaNotSupported),
-        }
-
-        offset = end;
-    }
-
-    Ok(())
-}
-
 pub fn handler_generate_secret(comm: &mut Comm, display: bool) -> Result<(), AppSW> {
-    let mut rng = LedgerRng {};
-
-    let secret1 = Secret::random(&mut rng);
-    let identity1 = secret1.to_identity();
-    let secret2 = Secret::random(&mut rng);
-    let identity2 = secret2.to_identity();
-
-    let (_round1_secret_package, package): (Vec<u8>, PublicPackage) =
-        round1::round1(&identity1, 2, [&identity1, &identity2], &mut rng).unwrap();
-
-    let round1_secret_slice = &package.serialize()[..];
-    if display {
-        if !ui_display_secret(round1_secret_slice)? {
-            return Err(AppSW::Deny);
-        }
-    }
-
-    // Send the data in chunks
-    send_apdu_chunks(comm, round1_secret_slice)?;
-
-    Ok(())
-}
-
-pub fn handler_generate_secret3(comm: &mut Comm, display: bool) -> Result<(), AppSW> {
     // let mut rng = LedgerRng {};
 
     let secret_bytes: [u8; 65] = [
