@@ -558,27 +558,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "frost-core"
-version = "2.0.0-rc.0"
-source = "git+https://github.com/ZcashFoundation/frost.git?rev=c6c3f2f#c6c3f2f1673fa7fb99d458d2c5a2323dcecbad0d"
-dependencies = [
- "byteorder",
- "const-crc32-nostd",
- "debugless-unwrap",
- "derive-getters",
- "document-features",
- "hex",
- "itertools",
- "postcard",
- "rand_core",
- "serde",
- "serdect",
- "thiserror-nostd-notrait",
- "visibility",
- "zeroize",
-]
-
-[[package]]
 name = "frost-rerandomized"
 version = "2.0.0-rc.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -586,7 +565,7 @@ checksum = "bdb14a6054f9ce5aa4912c60c11392d42c43acec8295ee1df1f67a9d0b7a73ee"
 dependencies = [
  "derive-getters",
  "document-features",
- "frost-core 2.0.0-rc.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "frost-core",
  "hex",
  "rand_core",
 ]
@@ -767,12 +746,11 @@ dependencies = [
 [[package]]
 name = "ironfish-frost"
 version = "0.1.0"
-source = "git+https://github.com/iron-fish/ironfish-frost.git?rev=9a80b83367d17b0b3337fe60ec6cd8f72f0707ab#9a80b83367d17b0b3337fe60ec6cd8f72f0707ab"
+source = "git+https://github.com/iron-fish/ironfish-frost.git?branch=no-std#ddfbe110e584e3e49cc0a68fbb8af5c92994fcd4"
 dependencies = [
  "chacha20",
  "chacha20poly1305",
  "ed25519-dalek",
- "frost-core 2.0.0-rc.0 (git+https://github.com/ZcashFoundation/frost.git?rev=c6c3f2f)",
  "rand_core",
  "reddsa",
  "siphasher",
